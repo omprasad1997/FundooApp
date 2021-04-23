@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
@@ -14,6 +15,7 @@ class Login : AppCompatActivity() {
     private lateinit var userPassword:EditText
     private lateinit var register:Button
     private lateinit var login:Button
+    private lateinit var resetPassword:Button
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +25,10 @@ class Login : AppCompatActivity() {
 
         userEmail    = findViewById(R.id.userEmail)
         userPassword = findViewById(R.id.userPassword)
-        register = findViewById(R.id.userRegister)
-        login    = findViewById(R.id.login)
-        mAuth = FirebaseAuth.getInstance()
+        resetPassword = findViewById(R.id.resetPassword)
+        register     = findViewById(R.id.userRegister)
+        login        = findViewById(R.id.login)
+        mAuth        = FirebaseAuth.getInstance()
     }
 
     fun userLogin(view: View) {
@@ -39,6 +42,7 @@ class Login : AppCompatActivity() {
         }else{
             mAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {result ->
                 Log.e("validation","Successful Login")
+                Toast.makeText(this, "Successfully Login ", Toast.LENGTH_LONG).show()
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
 
@@ -51,5 +55,10 @@ class Login : AppCompatActivity() {
     fun userRegistration(view: View) {
         val intent = Intent(this,SignupForm::class.java)
         startActivity(intent)
+    }
+
+    fun resetPassword(view: View) {
+            val intent = Intent(this,ResetPassword::class.java)
+            startActivity(intent)
     }
 }

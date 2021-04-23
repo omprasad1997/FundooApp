@@ -8,8 +8,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="381dp"
+        android:layout_height="62dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="24dp"
 
@@ -23,15 +23,15 @@
         <EditText
             android:id="@+id/userEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Email"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="376dp"
+        android:layout_height="68dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="100dp"
 
@@ -44,36 +44,49 @@
         <EditText
             android:id="@+id/userPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Password"
             android:inputType="number"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/rounded_button"
+        android:onClick="userLogin"
         android:text="Login"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
-        android:onClick="userLogin"/>
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
     <Button
         android:id="@+id/userRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginRight="144dp"
         android:background="@drawable/rounded_button"
+        android:onClick="userRegistration"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
-        android:onClick="userRegistration"/>
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+
+    <Button
+        android:id="@+id/resetPassword"
+        android:layout_width="119dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/rounded_button"
+        android:text="Reset Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userRegister"
+        android:onClick="resetPassword"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
