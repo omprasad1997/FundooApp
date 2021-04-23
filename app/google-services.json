@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "77899006021",
+    "project_id": "fundooapp-c02e4",
+    "storage_bucket": "fundooapp-c02e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77899006021:android:11a9dfa5a51724e6f5e32c",
+        "android_client_info": {
+          "package_name": "com.example.loginapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77899006021-84jatu3mfctpe2c1i75oc5v4k91fn9bd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzowuVOe4WQSx9SgomUNjUow58y-oti1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77899006021-84jatu3mfctpe2c1i75oc5v4k91fn9bd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
