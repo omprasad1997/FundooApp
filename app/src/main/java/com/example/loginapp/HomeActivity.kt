@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     private lateinit var logout:Button
     private lateinit var mAuth: FirebaseAuth
 
@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
     fun userLogout(view: View) {
         mAuth.signOut()
         Toast.makeText(this, "Successfully logout ", Toast.LENGTH_LONG).show()
-        val intent = Intent(this, Login::class.java)
+        finish()
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 }

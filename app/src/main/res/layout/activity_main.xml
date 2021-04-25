@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    android:layout_gravity="center"
+    android:background="#FFFFFF"
+    tools:context=".LoginActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout7"
-        android:layout_width="381dp"
+        android:layout_width="351dp"
         android:layout_height="62dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="24dp"
@@ -16,35 +18,42 @@
         android:layout_marginRight="30dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <EditText
             android:id="@+id/userEmail"
-            android:layout_width="match_parent"
+            android:layout_width="351dp"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             android:hint="Email"
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
-        android:layout_width="376dp"
-        android:layout_height="68dp"
+        android:layout_width="349dp"
+        android:layout_height="67dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="100dp"
 
+        android:layout_marginTop="16dp"
         android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
         app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/userPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#FFFFFF"
             android:hint="Password"
             android:inputType="number"
             android:textSize="18sp" />
@@ -52,41 +61,67 @@
 
     <Button
         android:id="@+id/login"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_button"
         android:onClick="userLogin"
         android:text="Login"
+        app:layout_constraintBottom_toTopOf="@+id/resetPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
-    <Button
+    <TextView
         android:id="@+id/userRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="144dp"
-        android:layout_marginRight="144dp"
+        android:layout_width="138dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
         android:background="@drawable/rounded_button"
+        android:gravity="center"
         android:onClick="userRegistration"
         android:text="Register"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/resetPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+        app:layout_constraintHorizontal_bias="0.573"
+        app:layout_constraintStart_toEndOf="@+id/resetPassword"
+        app:layout_constraintTop_toTopOf="@+id/resetPassword"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <Button
+    <TextView
         android:id="@+id/resetPassword"
-        android:layout_width="119dp"
-        android:layout_height="55dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_width="138dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
-        android:text="Reset Password"
+        android:gravity="center"
+        android:onClick="resetPassword"
+        android:text="Forgot Password ?"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="9dp"
+        android:layout_height="66dp"
+        android:gravity="center"
+        android:text="|"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/userRegister"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/userRegister"
-        android:onClick="resetPassword"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
