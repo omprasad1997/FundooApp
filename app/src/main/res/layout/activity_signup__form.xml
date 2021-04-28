@@ -25,7 +25,7 @@
             android:background="#FFFFFF"
             android:hint="First Name"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +46,7 @@
             android:background="#FFFFFF"
             android:hint="Last Name"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -67,7 +67,7 @@
             android:background="#FFFFFF"
             android:hint="Email "
             android:inputType="textEmailAddress"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -89,7 +89,7 @@
             android:background="#FFFFFF"
             android:hint="Password "
             android:inputType="number"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -112,13 +112,13 @@
             android:background="#FFFFFF"
             android:hint="Confirm Password "
             android:inputType="number"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="239dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="28dp"
         android:layout_marginRight="30dp"
@@ -138,7 +138,7 @@
         android:gravity="center"
         android:onClick="alreadyRegistered"
         android:text="Already Registered ? Sign in"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register" />

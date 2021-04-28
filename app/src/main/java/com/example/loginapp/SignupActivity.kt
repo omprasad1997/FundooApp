@@ -56,6 +56,7 @@ class SignupActivity : AppCompatActivity() {
             mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {result ->
                 Toast.makeText(this, "Successfully registered ", Toast.LENGTH_LONG).show()
                 Log.e("validation","Successful registration")
+
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener {
@@ -73,8 +74,5 @@ class SignupActivity : AppCompatActivity() {
 
     fun alreadyRegistered(view: View) {
         finish()
-        val intent = Intent(this,LoginActivity::class.java)
-        startActivity(intent)
-
     }
 }

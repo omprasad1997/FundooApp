@@ -1,17 +1,24 @@
 package com.example.loginapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.d
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var userEmail:EditText
@@ -20,6 +27,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var register:TextView
     private lateinit var resetPassword:TextView
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var sharedPreferenceHelper : SharedPreferenceHelper
+    private val RC_SIGN_IN: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
         register     = findViewById(R.id.userRegister)
         login        = findViewById(R.id.login)
         mAuth        = FirebaseAuth.getInstance()
+        sharedPreferenceHelper = SharedPreferenceHelper(this)
     }
 
     fun userLogin(view: View) {
@@ -47,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("validation","Successful Login")
                 Toast.makeText(this, "Successfully Login ", Toast.LENGTH_SHORT).show()
                 finish()
+                this.sharedPreferenceHelper.setLoggedIn(true)
                 val intent = Intent(this,HomeActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener {
@@ -64,14 +76,64 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun userRegistration(view: View) {
-        finish()
         val intent = Intent(this,SignupActivity::class.java)
         startActivity(intent)
-
     }
 
     fun resetPassword(view: View) {
         val intent = Intent(this,ForgotPasswordActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun signInGoogle(view: View) {
+        signInWithGoogle()
+    }
+
+    private fun signInWithGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+
+        val signInIntent: Intent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleResult(task)
+        }
+    }
+
+    private fun handleResult(completedTask: Task<GoogleSignInAccount>){
+        try {
+            val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)!!
+            firebaseAuthWithGoogle(account.idToken!!)
+        } catch (e: ApiException) {
+            d("handleRequest", e.toString())
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        mAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = mAuth.currentUser
+                    updateUI(user)
+                } else {
+                    updateUI(null)
+                }
+            }
+    }
+
+    private fun updateUI(user: FirebaseUser?) {
+        val intent  = Intent(this,HomeActivity::class.java)
         startActivity(intent)
     }
 }
