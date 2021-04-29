@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
@@ -28,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var resetPassword:TextView
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var googleSignInButton: SignInButton
     private lateinit var sharedPreferenceHelper : SharedPreferenceHelper
     private val RC_SIGN_IN: Int = 1
 
@@ -41,8 +43,13 @@ class LoginActivity : AppCompatActivity() {
         resetPassword = findViewById(R.id.resetPassword)
         register     = findViewById(R.id.userRegister)
         login        = findViewById(R.id.login)
+        googleSignInButton = findViewById(R.id.googleSignInButton)
         mAuth        = FirebaseAuth.getInstance()
         sharedPreferenceHelper = SharedPreferenceHelper(this)
+
+        googleSignInButton.setOnClickListener{
+            signInWithGoogle()
+        }
     }
 
     fun userLogin(view: View) {
@@ -85,10 +92,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun signInGoogle(view: View) {
-        signInWithGoogle()
-    }
-
     private fun signInWithGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -96,7 +99,6 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
          mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
 
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -125,6 +127,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = mAuth.currentUser
+                    this.sharedPreferenceHelper.setLoggedIn(true)
                     updateUI(user)
                 } else {
                     updateUI(null)
@@ -133,6 +136,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
+        finish()
         val intent  = Intent(this,HomeActivity::class.java)
         startActivity(intent)
     }

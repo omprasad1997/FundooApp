@@ -12,10 +12,12 @@
         android:id="@+id/textInputLayout7"
         android:layout_width="351dp"
         android:layout_height="62dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
 
-        android:layout_marginRight="30dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
@@ -23,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024"
+        app:layout_constraintVertical_bias="0.13999999"
         app:layout_constraintVertical_chainStyle="packed">
 
         <EditText
@@ -62,8 +64,8 @@
 
     <Button
         android:id="@+id/login"
-        android:layout_width="240dp"
-        android:layout_height="59dp"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_button"
@@ -71,16 +73,16 @@
         android:text="Login"
         app:layout_constraintBottom_toTopOf="@+id/resetPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
     <TextView
         android:id="@+id/userRegister"
-        android:layout_width="138dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
         android:background="@drawable/rounded_button"
         android:gravity="center"
         android:onClick="userRegistration"
@@ -89,17 +91,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/resetPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintStart_toEndOf="@+id/resetPassword"
         app:layout_constraintTop_toTopOf="@+id/resetPassword"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/resetPassword"
-        android:layout_width="138dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginLeft="27dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
         android:gravity="center"
@@ -107,42 +107,29 @@
         android:text="Forgot Password ?"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/userRegister"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="9dp"
-        android:layout_height="66dp"
-        android:gravity="center"
-        android:text="|"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/userRegister"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="------or------"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/resetPassword" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googleSignInButton"
-        android:layout_width="203dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="212dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="22dp"
         android:background="@drawable/rounded_button"
-        android:onClick="signInGoogle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
