@@ -18,6 +18,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        initializationOfViews()
+    }
+
+   fun initializationOfViews() {
         sharedPreferenceHelper = SharedPreferenceHelper(this)
         logout = findViewById(R.id.logout)
         mAuth = FirebaseAuth.getInstance()

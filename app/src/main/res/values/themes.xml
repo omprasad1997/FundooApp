@@ -13,5 +13,5 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar"/>
+    <style name="SplashScreenNoActionBar" parent="Theme.AppCompat.NoActionBar"/>
 </resources>

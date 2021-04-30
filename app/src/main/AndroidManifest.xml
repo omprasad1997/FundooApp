@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginApp">
         <activity android:name=".SplashScreenActivity"
-            android:theme="@style/SplashScreen">
+            android:theme="@style/SplashScreenNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

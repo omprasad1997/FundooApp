@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="userLogout"
-        android:text="Logout"
+        android:text="@string/logout"
         android:textSize="14sp"
         android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -17,14 +17,16 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var enteredConfirmPassword:EditText
     private lateinit var register: Button
     private lateinit var alreadyRegistered: TextView
-
     private lateinit var mAuth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup__form)
         supportActionBar?.title = "Signup"
+        initializationOfViews()
+    }
 
+    private fun initializationOfViews() {
         enteredFirstName = findViewById(R.id.firstName)
         enteredLastName = findViewById(R.id.lastName)
         enteredEmail = findViewById(R.id.email)
@@ -35,6 +37,42 @@ class SignupActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
     }
 
+    private fun isFirstNameValid(firstName:String) : Boolean {
+        if(firstName.isEmpty() || (firstName.length < 3)) {
+            enteredFirstName.error = "Your Full name is not valid"
+        }else{
+            return true
+        }
+        return false
+    }
+
+    private fun isLastNameValid(lastName:String) : Boolean {
+        if(lastName.isEmpty() || (lastName.length < 3)) {
+            enteredLastName.error = "Your last name is not valid"
+        }else{
+            return true
+        }
+        return false
+    }
+
+    private fun isEmailValid(email:String) : Boolean {
+        if(email.isEmpty() || !email.contains("@gmail.com")) {
+            enteredEmail.error = "Email is not valid"
+        }else{
+            return true
+        }
+        return false
+    }
+
+    private fun isPasswordValid(password:String) : Boolean {
+        if(password.isEmpty() || password.length < 7) {
+            enteredPassword.error = "Password must be 7 characters"
+        }else{
+            return true
+        }
+        return false
+    }
+
     private fun checkCredentials() {
         val firstName = enteredFirstName.text.toString()
         val lastName = enteredLastName.text.toString()
@@ -42,21 +80,20 @@ class SignupActivity : AppCompatActivity() {
         val password = enteredPassword.text.toString()
         val confirmPassword = enteredConfirmPassword.text.toString()
 
-        if(firstName.isEmpty() || (firstName.length < 3)) {
-            enteredFirstName.error = "Your Full name is not valid"
-        } else if(lastName.isEmpty() || (lastName.length < 3)) {
-            enteredLastName.error = "Your Full name is not valid"
-        } else if(email.isEmpty() || !email.contains("@")) {
-            enteredEmail.error = "Email is not valid"
-        } else if(password.isEmpty() || password.length < 7) {
-            enteredPassword.error = "Password must be 7 characters"
+        if(isFirstNameValid(firstName)) {
+            return
+        } else if(isLastNameValid(lastName)) {
+            return
+        } else if(isEmailValid(email)) {
+            return
+        } else if(isPasswordValid(password)) {
+            return
         }  else if(confirmPassword.isEmpty() || !confirmPassword.contains(password)) {
-            enteredConfirmPassword.error = "Password not match"
+            enteredConfirmPassword.error = "Password does not match"
         }else {
             mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {result ->
                 Toast.makeText(this, "Successfully registered ", Toast.LENGTH_LONG).show()
                 Log.e("validation","Successful registration")
-
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener {

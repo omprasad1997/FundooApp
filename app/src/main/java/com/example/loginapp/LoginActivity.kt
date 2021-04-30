@@ -38,6 +38,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.title = "Login"
 
+        initializationOfViews()
+        googleSignInButton.setOnClickListener{
+            signInWithGoogle()
+        }
+    }
+
+    private fun initializationOfViews() {
         userEmail    = findViewById(R.id.userEmail)
         userPassword = findViewById(R.id.userPassword)
         resetPassword = findViewById(R.id.resetPassword)
@@ -46,36 +53,38 @@ class LoginActivity : AppCompatActivity() {
         googleSignInButton = findViewById(R.id.googleSignInButton)
         mAuth        = FirebaseAuth.getInstance()
         sharedPreferenceHelper = SharedPreferenceHelper(this)
-
-        googleSignInButton.setOnClickListener{
-            signInWithGoogle()
-        }
     }
+
+    private fun isEmailValid(email:String) : Boolean = email.isEmpty() || !email.contains("@gmail.com")
+    private fun isPasswordValid(password:String) : Boolean = password.isEmpty()
 
     fun userLogin(view: View) {
         val email = userEmail.text.toString()
         val password = userPassword.text.toString()
-
-        if(email.isEmpty() || !email.contains("@")) {
-            userEmail.error = "Your Email is not valid"
-        } else if(password.isEmpty() || password.length < 7) {
-            userPassword.error = "Password is incorrect"
-        }else{
-            mAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {result ->
-                Log.e("validation","Successful Login")
-                Toast.makeText(this, "Successfully Login ", Toast.LENGTH_SHORT).show()
-                finish()
-                this.sharedPreferenceHelper.setLoggedIn(true)
-                val intent = Intent(this,HomeActivity::class.java)
-                startActivity(intent)
-            }.addOnFailureListener {
-                Log.e("validation","Failed Login", it)
-                when(it) {
-                    is FirebaseAuthInvalidCredentialsException -> {
-                        Toast.makeText(this, "Password is incorrect", Toast.LENGTH_SHORT).show()
-                    }
-                    is FirebaseAuthInvalidUserException -> {
-                        Toast.makeText(this, "This Username is not exist ", Toast.LENGTH_SHORT).show()
+        when {
+            isEmailValid(email) -> {
+                userEmail.error = "Email is not valid"
+            }
+            isPasswordValid(password) -> {
+                userPassword.error = "Password is incorrect"
+            }
+            else -> {
+                mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener { result ->
+                    Log.e("validation", "Successful Login")
+                    Toast.makeText(this, "Successfully Login ", Toast.LENGTH_SHORT).show()
+                    finish()
+                    this.sharedPreferenceHelper.setLoggedIn(true)
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                }.addOnFailureListener {
+                    Log.e("validation", "Failed Login", it)
+                    when (it) {
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            Toast.makeText(this, "Password is incorrect", Toast.LENGTH_SHORT).show()
+                        }
+                        is FirebaseAuthInvalidUserException -> {
+                            Toast.makeText(this, "This Username is not exist ", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -112,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleResult(completedTask: Task<GoogleSignInAccount>){
+    private fun handleResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)!!
             firebaseAuthWithGoogle(account.idToken!!)

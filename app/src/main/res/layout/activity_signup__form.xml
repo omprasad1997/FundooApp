@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:hint="First Name"
+            android:hint="@string/first_name"
             android:inputType="text"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:hint="Last Name"
+            android:hint="@string/last_name"
             android:inputType="text"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:hint="Email "
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -87,9 +87,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:hint="Password "
+            android:hint="@string/password"
             android:inputType="number"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="TextFields" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -110,9 +111,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:hint="Confirm Password "
+            android:hint="@string/confirm_password"
             android:inputType="number"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="TextFields" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -124,7 +126,7 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/rounded_button"
         android:onClick="registerUser"
-        android:text="Register"
+        android:text="@string/register"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +139,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:onClick="alreadyRegistered"
-        android:text="Already Registered ? Sign in"
+        android:text="@string/already_registered_sign_in"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
