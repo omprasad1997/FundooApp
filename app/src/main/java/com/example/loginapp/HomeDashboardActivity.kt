@@ -21,7 +21,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
@@ -29,16 +32,20 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
     private lateinit var sharedPreferenceHelper  : SharedPreferenceHelper
     private lateinit var  drawer : DrawerLayout
     private lateinit var navigationView: NavigationView
+    private lateinit var fab : FloatingActionButton
     private val homeFragment = HomeFragment()
     private val notesFragment = NotesFragment()
     private val archiveFragment = ArchiveFragment()
     private val settingsFragment = SettingsFragment()
+    private val editNotesFragment = EditNotesFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.title = "Fundoo Notes"
         initializationOfViews()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,6 +62,7 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
         sharedPreferenceHelper = SharedPreferenceHelper(this)
         mAuth = FirebaseAuth.getInstance()
         drawer = findViewById(R.id.drawer)
+        fab    = findViewById(R.id.fab)
 
        val drawerToggle = ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close)
        drawer.addDrawerListener(drawerToggle)
@@ -63,6 +71,21 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
        navigationView.setNavigationItemSelectedListener(this)
 
        setStartingFragment()
+       fab.setOnClickListener { view ->
+           Snackbar.make(view, "Here's a creating notes option", Snackbar.LENGTH_LONG)
+                   .setAction("Action", null)
+                   .show()
+       }
+
+//       bottomNavigationView.setOnNavigationItemSelectedListener {
+//           when(it.itemId){
+//               R.id.home        -> setCurrentFragment(homeFragment)
+//               R.id.notes       -> setCurrentFragment(notesFragment)
+//               R.id.archive     -> setCurrentFragment(archiveFragment)
+//               R.id.editNotes   -> setCurrentFragment(editNotesFragment)
+//           }
+//           true
+//       }
        }
 
     private fun setStartingFragment() {
