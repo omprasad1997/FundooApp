@@ -1,8 +1,6 @@
 package com.example.loginapp
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -42,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
         googleSignInButton.setOnClickListener{
             signInWithGoogle()
         }
+
     }
 
     private fun initializationOfViews() {
@@ -74,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Successfully Login ", Toast.LENGTH_SHORT).show()
                     finish()
                     this.sharedPreferenceHelper.setLoggedIn(true)
-                    val intent = Intent(this, HomeActivity::class.java)
+                    val intent = Intent(this, HomeDashboardActivity::class.java)
                     startActivity(intent)
                 }.addOnFailureListener {
                     Log.e("validation", "Failed Login", it)
@@ -146,7 +145,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         finish()
-        val intent  = Intent(this,HomeActivity::class.java)
+        val intent  = Intent(this,HomeDashboardActivity::class.java)
         startActivity(intent)
     }
 }

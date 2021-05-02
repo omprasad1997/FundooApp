@@ -80,25 +80,26 @@ class SignupActivity : AppCompatActivity() {
         val password = enteredPassword.text.toString()
         val confirmPassword = enteredConfirmPassword.text.toString()
 
-        if(isFirstNameValid(firstName)) {
+        if (!isFirstNameValid(firstName)) {
             return
-        } else if(isLastNameValid(lastName)) {
+        } else if (!isLastNameValid(lastName)) {
             return
-        } else if(isEmailValid(email)) {
+        } else if (!isEmailValid(email)) {
             return
-        } else if(isPasswordValid(password)) {
+        } else if (!isPasswordValid(password)) {
             return
-        }  else if(confirmPassword.isEmpty() || !confirmPassword.contains(password)) {
+        } else if (confirmPassword.isEmpty() || !confirmPassword.contains(password)) {
             enteredConfirmPassword.error = "Password does not match"
-        }else {
-            mAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {result ->
+        } else {
+            Log.e("Email" , "$email : $password")
+            mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener { result ->
                 Toast.makeText(this, "Successfully registered ", Toast.LENGTH_LONG).show()
-                Log.e("validation","Successful registration")
+                Log.e("validation", "Successful registration")
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener {
-                Log.e("validation","Failed registration", it)
-                if(it is FirebaseAuthUserCollisionException){
+                Log.e("validation", "Failed registration", it)
+                if (it is FirebaseAuthUserCollisionException) {
                     Toast.makeText(this, "This email already exist ", Toast.LENGTH_LONG).show()
                 }
             }

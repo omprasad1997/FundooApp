@@ -1,8 +1,6 @@
 package com.example.loginapp
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -28,7 +26,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else {
-                val intent = Intent(this,HomeActivity::class.java)
+                val intent = Intent(this,HomeDashboardActivity::class.java)
                 startActivity(intent)
                 finish()
             }
