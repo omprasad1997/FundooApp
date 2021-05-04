@@ -7,16 +7,22 @@
     android:background="#FFFF"
     tools:context=".SignupActivity">
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59000003">
 
         <EditText
             android:id="@+id/firstName"
@@ -98,13 +104,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="340dp"
 
         android:layout_marginRight="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        tools:layout_editor_absoluteY="340dp">
 
         <EditText
             android:id="@+id/confirmPassword"
@@ -122,7 +127,7 @@
         android:layout_width="239dp"
         android:layout_height="45dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/rounded_button"
         android:onClick="registerUser"

@@ -5,15 +5,12 @@
     <item android:title="@string/home"
         android:id="@+id/home"
         android:icon="@drawable/ic_baseline_home_24"/>
-    <item android:title="@string/notes"
+    <item android:title="@string/all_notes"
         android:id="@+id/notes"
         android:icon="@drawable/ic_baseline_notes_24"/>
-    <item android:title="@string/archive"
-        android:id="@+id/archive"
-        android:icon="@drawable/ic_baseline_archive_24"/>
-    <item android:title="@string/edit_notes"
+    <item android:title="@string/update_notes"
         android:id="@+id/editNotes"
-        android:icon="@drawable/ic_baseline_edit_24"/>
+        android:icon="@drawable/ic_baseline_update_24"/>
 
 </group>
 </menu>

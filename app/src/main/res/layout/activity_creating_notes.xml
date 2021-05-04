@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForgotPasswordActivity">
+    tools:context=".CreatingNotes">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/resetPasswordToolbar"
+        android:id="@+id/createNoteToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@android:color/white">
@@ -21,29 +21,28 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/emailForReset"
-        android:layout_width="299dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="96dp"
+        android:id="@+id/writtenNotes"
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:autofillHints="text"
         android:ems="10"
-        android:hint="@string/enter_your_email"
-        android:inputType="textEmailAddress"
+        android:hint="@string/write_notes_here"
+        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/reset"
+        android:id="@+id/saveNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
-        android:onClick="resetUserPassword"
-        android:text="@string/reset"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="76dp"
+        android:background="#CDDC39"
+        android:text="@string/save_note"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailForReset"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintTop_toBottomOf="@+id/writtenNotes" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

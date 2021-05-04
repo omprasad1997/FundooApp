@@ -37,7 +37,6 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
     private val notesFragment = NotesFragment()
     private val archiveFragment = ArchiveFragment()
     private val settingsFragment = SettingsFragment()
-    private val editNotesFragment = EditNotesFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +44,6 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.title = "Fundoo Notes"
         initializationOfViews()
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -71,10 +69,9 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
        navigationView.setNavigationItemSelectedListener(this)
 
        setStartingFragment()
-       fab.setOnClickListener { view ->
-           Snackbar.make(view, "Here's a creating notes option", Snackbar.LENGTH_LONG)
-                   .setAction("Action", null)
-                   .show()
+       fab.setOnClickListener {
+           val intent = Intent(this, CreatingNotes::class.java)
+           startActivity(intent)
        }
 
 //       bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -82,7 +79,6 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
 //               R.id.home        -> setCurrentFragment(homeFragment)
 //               R.id.notes       -> setCurrentFragment(notesFragment)
 //               R.id.archive     -> setCurrentFragment(archiveFragment)
-//               R.id.editNotes   -> setCurrentFragment(editNotesFragment)
 //           }
 //           true
 //       }
