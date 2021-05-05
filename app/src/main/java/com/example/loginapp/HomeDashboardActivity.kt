@@ -70,8 +70,11 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
 
        setStartingFragment()
        fab.setOnClickListener {
-           val intent = Intent(this, CreatingNotes::class.java)
-           startActivity(intent)
+           supportActionBar?.setDisplayHomeAsUpEnabled(true)
+           supportFragmentManager.beginTransaction().apply {
+               replace(R.id.flFragment,CreateNoteFragment()).addToBackStack(null)
+               commit()
+           }
        }
 
 //       bottomNavigationView.setOnNavigationItemSelectedListener {
