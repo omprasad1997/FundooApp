@@ -29,4 +29,5 @@
     <string name="save_note">Save note</string>
     <string name="write_notes_here">Write notes here</string>
     <string name="notes">Notes</string>
+    <string name="title">Title</string>
 </resources>

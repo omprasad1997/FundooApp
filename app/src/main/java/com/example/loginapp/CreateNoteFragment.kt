@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 
 class CreateNoteFragment : Fragment() {
     private lateinit var writtenNote: EditText
+    private lateinit var noteTitle: EditText
     private lateinit var saveNoteButton: Button
     private lateinit var db:FirebaseFirestore
     private lateinit var mAuth : FirebaseAuth
@@ -31,27 +31,35 @@ class CreateNoteFragment : Fragment() {
     private fun initializationOfViews(view: View?) {
         if (view != null) {
             writtenNote = view.findViewById(R.id.writtenNote)
+            noteTitle    = view.findViewById(R.id.noteTitle)
             saveNoteButton = view.findViewById(R.id.saveNoteButton)
         }
         saveNoteButton.setOnClickListener {
+            val title = noteTitle.text.toString()
             val note = writtenNote.text.toString()
-            if (note.isEmpty()) {
-                Snackbar.make(it, "Note is empty", Snackbar.LENGTH_LONG)
+
+            if (note.isEmpty() || title.isEmpty()) {
+                Snackbar.make(it, "Note or title field is empty", Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
                     .show()
             } else {
-                saveDataToFireStore(note,view)
+                saveDataToFireStoreWithSubCollection(title,note,view)
             }
         }
-
     }
 
-    private fun saveDataToFireStore(note: String, view: View?) {
+    private fun saveDataToFireStoreWithSubCollection(title: String, note: String, view: View?) {
         db = FirebaseFirestore.getInstance()
+        mAuth = FirebaseAuth.getInstance()
         val notesMap = mutableMapOf<String,Any>()
+        val userUID = mAuth.currentUser?.uid
+        notesMap["title"] = title
         notesMap["note"]  = note
+        notesMap["User Name"] = mAuth.currentUser?.displayName.toString()
+        notesMap["email"] = mAuth.currentUser?.email.toString()
 
-        db.collection("Notes").add(notesMap)
+        db.collection("Users").document(userUID.toString())
+                .collection("noteList").add(notesMap)
             .addOnSuccessListener {
                 if (view != null) {
                     Snackbar.make(view, "Note saved successfully", Snackbar.LENGTH_LONG)

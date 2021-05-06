@@ -32,7 +32,6 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
     private lateinit var sharedPreferenceHelper  : SharedPreferenceHelper
     private lateinit var  drawer : DrawerLayout
     private lateinit var navigationView: NavigationView
-    private lateinit var fab : FloatingActionButton
     private val homeFragment = HomeFragment()
     private val notesFragment = NotesFragment()
     private val archiveFragment = ArchiveFragment()
@@ -60,7 +59,6 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
         sharedPreferenceHelper = SharedPreferenceHelper(this)
         mAuth = FirebaseAuth.getInstance()
         drawer = findViewById(R.id.drawer)
-        fab    = findViewById(R.id.fab)
 
        val drawerToggle = ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close)
        drawer.addDrawerListener(drawerToggle)
@@ -68,32 +66,8 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
        navigationView = findViewById(R.id.navigation_view)
        navigationView.setNavigationItemSelectedListener(this)
 
-       setStartingFragment()
-       fab.setOnClickListener {
-           supportActionBar?.setDisplayHomeAsUpEnabled(true)
-           supportFragmentManager.beginTransaction().apply {
-               replace(R.id.flFragment,CreateNoteFragment()).addToBackStack(null)
-               commit()
-           }
+        setCurrentFragment(homeFragment)
        }
-
-//       bottomNavigationView.setOnNavigationItemSelectedListener {
-//           when(it.itemId){
-//               R.id.home        -> setCurrentFragment(homeFragment)
-//               R.id.notes       -> setCurrentFragment(notesFragment)
-//               R.id.archive     -> setCurrentFragment(archiveFragment)
-//           }
-//           true
-//       }
-       }
-
-    private fun setStartingFragment() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,homeFragment)
-            commit()
-        }
-    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
          when (item.itemId) {
@@ -109,8 +83,9 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
     }
 
     private fun setCurrentFragment(fragment: Fragment) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fragment)
+            replace(R.id.fragment_container, fragment)
             commit()
         }
     }

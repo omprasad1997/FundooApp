@@ -10,8 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginApp">
-        <activity android:name=".CreatingNotes">
-        </activity>
         <activity
             android:name=".SplashScreenActivity">
             <intent-filter>
@@ -30,7 +28,6 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.LoginApp">
-
         </activity>
     </application>
 
