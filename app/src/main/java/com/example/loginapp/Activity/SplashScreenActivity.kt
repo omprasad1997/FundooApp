@@ -1,9 +1,11 @@
-package com.example.loginapp
+package com.example.loginapp.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.loginapp.R
+import com.example.loginapp.Class.SharedPreferenceHelper
 
 class SplashScreenActivity : AppCompatActivity() {
     private var TIME_OUT:Long = 3000
@@ -22,11 +24,11 @@ class SplashScreenActivity : AppCompatActivity() {
             val checkLogin = sharedPreferenceHelper.getLoggedIn()
 
             if(!checkLogin) {
-                val intent = Intent(this,LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }else {
-                val intent = Intent(this,HomeDashboardActivity::class.java)
+                val intent = Intent(this, HomeDashboardActivity::class.java)
                 startActivity(intent)
                 finish()
             }

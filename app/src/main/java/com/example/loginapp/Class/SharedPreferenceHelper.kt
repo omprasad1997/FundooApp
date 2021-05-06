@@ -1,7 +1,8 @@
-package com.example.loginapp
+package com.example.loginapp.Class
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.loginapp.Constants.Constants
 
 class SharedPreferenceHelper(context:Context) {
     private var sharedPreferences:SharedPreferences = context.getSharedPreferences(

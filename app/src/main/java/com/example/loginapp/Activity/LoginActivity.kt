@@ -1,4 +1,4 @@
-package com.example.loginapp
+package com.example.loginapp.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.loginapp.Class.SharedPreferenceHelper
+import com.example.loginapp.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -91,12 +93,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun userRegistration(view: View) {
-        val intent = Intent(this,SignupActivity::class.java)
+        val intent = Intent(this, SignupActivity::class.java)
         startActivity(intent)
     }
 
     fun resetPassword(view: View) {
-        val intent = Intent(this,ForgotPasswordActivity::class.java)
+        val intent = Intent(this, ForgotPasswordActivity::class.java)
         startActivity(intent)
     }
 
@@ -145,7 +147,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         finish()
-        val intent  = Intent(this,HomeDashboardActivity::class.java)
+        val intent  = Intent(this, HomeDashboardActivity::class.java)
         startActivity(intent)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.loginapp
+package com.example.loginapp.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
+import com.example.loginapp.Activity.LoginActivity
+import com.example.loginapp.R
 import com.google.firebase.auth.FirebaseAuth
 
 class ForgotPasswordActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             mAuth.sendPasswordResetEmail(email).addOnSuccessListener {
                 Log.e("Validation","Successfully reset link sent email")
                 Toast.makeText(this,"Reset link sent to your email",Toast.LENGTH_SHORT).show()
-                val intent = Intent(this,LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }.addOnFailureListener {
                 Toast.makeText(this,"Please enter correct email id",Toast.LENGTH_SHORT).show()

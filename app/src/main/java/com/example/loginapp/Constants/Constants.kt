@@ -1,4 +1,4 @@
-package com.example.loginapp
+package com.example.loginapp.Constants
 
 object Constants {
     const val FUNDOO_PREF_FILE_NAME = "fundooAppPref"

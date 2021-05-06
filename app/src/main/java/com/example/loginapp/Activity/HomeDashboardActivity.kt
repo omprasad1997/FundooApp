@@ -1,30 +1,21 @@
-package com.example.loginapp
+package com.example.loginapp.Activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.system.Os.close
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.loginapp.*
+import com.example.loginapp.Class.SharedPreferenceHelper
+import com.example.loginapp.Fragment.ArchiveFragment
+import com.example.loginapp.Fragment.HomeFragment
+import com.example.loginapp.Fragment.NotesFragment
+import com.example.loginapp.Fragment.SettingsFragment
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
@@ -71,11 +62,11 @@ class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationI
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
          when (item.itemId) {
-            R.id.home        -> setCurrentFragment(homeFragment)
-            R.id.notes       -> setCurrentFragment(notesFragment)
-            R.id.archive     -> setCurrentFragment(archiveFragment)
-            R.id.settings    -> setCurrentFragment(settingsFragment)
-            R.id.logout      -> userLogout()
+            R.id.home -> setCurrentFragment(homeFragment)
+            R.id.notes -> setCurrentFragment(notesFragment)
+            R.id.archive -> setCurrentFragment(archiveFragment)
+            R.id.settings -> setCurrentFragment(settingsFragment)
+            R.id.logout -> userLogout()
         }
 
         drawer.closeDrawer(GravityCompat.START)
