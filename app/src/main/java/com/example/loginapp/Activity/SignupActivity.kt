@@ -11,14 +11,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 class SignupActivity : AppCompatActivity() {
-    private lateinit var enteredFirstName:EditText
-    private lateinit var enteredLastName:EditText
-    private lateinit var enteredEmail:EditText
-    private lateinit var enteredPassword:EditText
-    private lateinit var enteredConfirmPassword:EditText
+    private lateinit var enteredFirstName: EditText
+    private lateinit var enteredLastName: EditText
+    private lateinit var enteredEmail: EditText
+    private lateinit var enteredPassword: EditText
+    private lateinit var enteredConfirmPassword: EditText
     private lateinit var register: Button
     private lateinit var alreadyRegistered: TextView
-    private lateinit var mAuth : FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

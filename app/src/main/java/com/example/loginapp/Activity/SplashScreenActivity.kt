@@ -9,7 +9,7 @@ import com.example.loginapp.Class.SharedPreferenceHelper
 
 class SplashScreenActivity : AppCompatActivity() {
     private var TIME_OUT:Long = 3000
-    private lateinit var sharedPreferenceHelper  : SharedPreferenceHelper
+    private lateinit var sharedPreferenceHelper: SharedPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

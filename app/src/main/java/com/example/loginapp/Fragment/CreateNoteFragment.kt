@@ -51,15 +51,17 @@ class CreateNoteFragment : Fragment() {
     private fun saveDataToFireStoreWithSubCollection(title: String, note: String, view: View?) {
         db = FirebaseFirestore.getInstance()
         mAuth = FirebaseAuth.getInstance()
-        val notesMap = mutableMapOf<String,Any>()
+        val notesInformation = mutableMapOf<String,Any>()
+        val usersInformation = mutableMapOf<String,Any>()
         val userUID = mAuth.currentUser?.uid
-        notesMap["title"] = title
-        notesMap["note"]  = note
-        notesMap["User Name"] = mAuth.currentUser?.displayName.toString()
-        notesMap["email"] = mAuth.currentUser?.email.toString()
+        notesInformation["title"] = title
+        notesInformation["note"]  = note
+        usersInformation["Name"]  = mAuth.currentUser?.displayName.toString()
+        usersInformation["email"] = mAuth.currentUser?.email.toString()
+        db.collection("Users").document(userUID.toString()).set(usersInformation)
 
         db.collection("Users").document(userUID.toString())
-                .collection("noteList").add(notesMap)
+                .collection("noteList").add(notesInformation)
             .addOnSuccessListener {
                 if (view != null) {
                     Snackbar.make(view, "Note saved successfully", Snackbar.LENGTH_LONG)

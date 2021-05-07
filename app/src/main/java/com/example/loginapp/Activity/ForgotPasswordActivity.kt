@@ -14,8 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class ForgotPasswordActivity : AppCompatActivity() {
 //    private lateinit var resetPasswordToolbar: Toolbar
-    private lateinit var reset:Button
-    private lateinit var emailForReset:EditText
+    private lateinit var reset: Button
+    private lateinit var emailForReset: EditText
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {

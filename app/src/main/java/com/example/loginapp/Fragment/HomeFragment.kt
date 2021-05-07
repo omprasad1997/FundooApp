@@ -10,7 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class HomeFragment : Fragment() {
-    private lateinit var fab: FloatingActionButton
+    private lateinit var addNoteButton: FloatingActionButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -22,9 +22,9 @@ class HomeFragment : Fragment() {
 
     private fun initializationOfViews(view: View?) {
         if (view != null) {
-            fab = view.findViewById(R.id.fab)
+            addNoteButton = view.findViewById(R.id.addNoteButton)
         }
-        fab.setOnClickListener {
+        addNoteButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragment_container, CreateNoteFragment()).addToBackStack(null)
                 commit()

@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.loginapp.R
 
 class AllNotesFragment : Fragment() {
-    private lateinit var addNoteText : TextView
+    private lateinit var addNoteText: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

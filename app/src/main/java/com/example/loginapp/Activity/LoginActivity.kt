@@ -22,15 +22,15 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var userEmail:EditText
-    private lateinit var userPassword:EditText
-    private lateinit var login:Button
-    private lateinit var register:TextView
-    private lateinit var resetPassword:TextView
+    private lateinit var userEmail: EditText
+    private lateinit var userPassword: EditText
+    private lateinit var login: Button
+    private lateinit var register: TextView
+    private lateinit var resetPassword: TextView
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var googleSignInButton: SignInButton
-    private lateinit var sharedPreferenceHelper : SharedPreferenceHelper
+    private lateinit var sharedPreferenceHelper: SharedPreferenceHelper
     private val RC_SIGN_IN: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -18,10 +18,10 @@ import com.example.loginapp.Fragment.SettingsFragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class HomeDashboardActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
+class HomeDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var sharedPreferenceHelper  : SharedPreferenceHelper
-    private lateinit var  drawer : DrawerLayout
+    private lateinit var sharedPreferenceHelper: SharedPreferenceHelper
+    private lateinit var  drawer: DrawerLayout
     private lateinit var navigationView: NavigationView
     private val homeFragment = HomeFragment()
     private val notesFragment = NotesFragment()
