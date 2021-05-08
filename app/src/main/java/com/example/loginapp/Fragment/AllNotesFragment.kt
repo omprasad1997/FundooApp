@@ -9,13 +9,11 @@ import android.widget.TextView
 import com.example.loginapp.R
 
 class AllNotesFragment : Fragment() {
-    private lateinit var addNoteText: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_all_notes, container, false)
-        addNoteText = view.findViewById(R.id.addNoteText)
         return view
     }
 }
