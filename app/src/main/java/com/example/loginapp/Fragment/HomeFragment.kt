@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.loginapp.Class.FirebaseNoteDataManager
-import com.example.loginapp.Class.NotesAdapter
+import com.example.loginapp.models.FirebaseNoteDataManager
+import com.example.loginapp.models.NotesAdapter
 import com.example.loginapp.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         }
 
         noteDataManger.getAllNotes {
-            Log.d("Omprasad", "documents ${it}")
+            Log.d("checking all notes", "documents ${it}")
             recyclerView.adapter = NotesAdapter(it)
         }
         addNoteButton.setOnClickListener {

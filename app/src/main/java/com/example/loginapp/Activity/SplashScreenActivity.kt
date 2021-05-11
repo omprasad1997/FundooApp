@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.example.loginapp.R
-import com.example.loginapp.Class.SharedPreferenceHelper
+import com.example.loginapp.models.SharedPreferenceHelper
 
 class SplashScreenActivity : AppCompatActivity() {
     private var TIME_OUT:Long = 3000

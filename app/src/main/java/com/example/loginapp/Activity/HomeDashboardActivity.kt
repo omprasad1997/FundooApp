@@ -10,7 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.loginapp.*
-import com.example.loginapp.Class.SharedPreferenceHelper
+import com.example.loginapp.models.SharedPreferenceHelper
 import com.example.loginapp.Fragment.ArchiveFragment
 import com.example.loginapp.Fragment.HomeFragment
 import com.example.loginapp.Fragment.NotesFragment
