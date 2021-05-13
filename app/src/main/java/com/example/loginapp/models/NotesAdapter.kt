@@ -1,5 +1,7 @@
 package com.example.loginapp.models
 
+import android.content.Context
+import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,30 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.loginapp.R
 
 class NotesAdapter(private var notesList: ArrayList<Note>) :
-        RecyclerView.Adapter<NotesAdapter.ViewHolder>(){
+        RecyclerView.Adapter<MyViewHolder>(){
     private val firebaseNoteDataManager = FirebaseNoteDataManager()
 
-     class ViewHolder(itemView: View, onDeleteClick: (position:Int) -> Unit)  : RecyclerView.ViewHolder(itemView){
-        val notesTitle: TextView = itemView.findViewById(R.id.noteTitle)
-        val notesText : TextView = itemView.findViewById(R.id.notesText)
-
-
-         init{
-             val firebaseNoteDataManager = FirebaseNoteDataManager()
-
-             val deleteButton:ImageView = itemView.findViewById(R.id.deleteButton)
-             deleteButton.setOnClickListener{
-                 onDeleteClick(adapterPosition)
-             }
-         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val viewHolder:View = LayoutInflater.from(parent.context).inflate(R.layout.layout_notes_item, parent,
                 false)
-        return  ViewHolder(viewHolder, onDeleteClick = {position ->
+        return  MyViewHolder(viewHolder, onDeleteClick = {position ->
             Log.e("Check delete","Item is deleted")
-            firebaseNoteDataManager.deleteNote(notesList.get(position).id){
+            firebaseNoteDataManager.deleteNote(notesList[position].id){
                 if(it){
                     Toast.makeText(parent.context, "Note is deleted",
                             Toast.LENGTH_SHORT).show()
@@ -45,7 +32,6 @@ class NotesAdapter(private var notesList: ArrayList<Note>) :
                             Toast.LENGTH_SHORT).show()
                 }
             }
-
         })
     }
 
@@ -53,7 +39,7 @@ class NotesAdapter(private var notesList: ArrayList<Note>) :
         return notesList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.notesTitle.text = notesList[position].title
         holder.notesText.text = notesList[position].notes
     }

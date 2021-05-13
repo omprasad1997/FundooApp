@@ -31,4 +31,9 @@
     <string name="notes">Notes</string>
     <string name="title">Title</string>
     <string name="delete">delete</string>
+    <string name="update_note">Update note</string>
+    <string name="omprasad_rathod">Omprasad Rathod</string>
+    <string name="xyz_gmail_com">xyz@gmail.com</string>
+    <string name="user_name">User Name</string>
+    <string name="useremail">userEmail</string>
 </resources>

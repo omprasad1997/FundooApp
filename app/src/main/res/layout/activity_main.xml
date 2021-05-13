@@ -180,17 +180,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/fundoo_logo_4" />
 
-    <!--    <View-->
-    <!--        android:layout_width="120dp"-->
-    <!--        android:layout_height="2dp"-->
-    <!--        android:layout_marginStart="64dp"-->
-    <!--        android:layout_marginLeft="64dp"-->
-    <!--        android:layout_marginTop="33dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="@+id/textView2"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/resetPassword"-->
-    <!--        app:layout_constraintVertical_bias="0.181" />-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
