@@ -1,5 +1,8 @@
 package com.example.loginapp.models
 
+import android.app.Activity
+import android.content.Intent
+import android.provider.MediaStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -12,13 +15,15 @@ class FirebaseUserManager {
     fun getUserDetails(listener: CallBack<FirebaseUserModel?>) {
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         firebaseFirestore.collection("Users")
-                .document(firebaseUser.uid).get()
-                .addOnSuccessListener { documentSnapshots ->
-                    val firebaseUserModel = FirebaseUserModel(
-                            documentSnapshots.getString("Name")!!
-                            , documentSnapshots.getString("email")!!)
-                    listener.onSuccess(firebaseUserModel)
-                }
-                .addOnFailureListener { e -> listener.onFailure(e) }
+            .document(firebaseUser.uid).get()
+            .addOnSuccessListener { documentSnapshots ->
+                val firebaseUserModel = FirebaseUserModel(
+                    documentSnapshots.getString("Name")!!
+                    , documentSnapshots.getString("email")!!
+                )
+                listener.onSuccess(firebaseUserModel)
+            }
+            .addOnFailureListener { e -> listener.onFailure(e) }
     }
 }
+

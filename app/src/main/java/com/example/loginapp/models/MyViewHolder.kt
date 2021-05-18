@@ -11,7 +11,6 @@ class MyViewHolder(itemView: View, onDeleteClick: (position:Int) -> Unit)  : Rec
     val notesText : TextView = itemView.findViewById(R.id.notesText)
 
     init{
-        val updateButton: ImageView = itemView.findViewById(R.id.updateButton)
         val deleteButton: ImageView = itemView.findViewById(R.id.deleteButton)
         deleteButton.setOnClickListener{
             onDeleteClick(adapterPosition)
