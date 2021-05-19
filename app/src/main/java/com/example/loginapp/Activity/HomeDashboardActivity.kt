@@ -102,17 +102,17 @@ class HomeDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         val headerView = navigationView.getHeaderView(0)
         val userProfileImage = headerView?.findViewById<ImageView>(R.id.userProfileImage)
         val storageRef = FirebaseStorage.getInstance().reference
-        val imageReference = storageRef.child("images/${FirebaseAuth.getInstance().currentUser.uid}.jpg")
+        val imageReference =
+            storageRef.child("images/${FirebaseAuth.getInstance().currentUser.uid}.jpg")
 
         imageReference.downloadUrl.addOnSuccessListener {
             Glide.with(this)
                 .load(it)
-//                .centerCrop()
                 .circleCrop()
                 .into(userProfileImage!!)
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             it.printStackTrace()
-            Toast.makeText(this,"Failed to load profile image", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Failed to load profile image", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -137,43 +137,45 @@ class HomeDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     private fun chooseImage() {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Choose picture"), 111)
-        }
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Choose picture"), 111)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            val headerView = navigationView.getHeaderView(0)
-            val userProfileImage = headerView?.findViewById<ImageView>(R.id.userProfileImage)
-            if (requestCode == 111 && resultCode == Activity.RESULT_OK && data != null) {
-                imageFilePath = data.data!!
-                Glide.with(this)
-                    .load(imageFilePath)
-                    .circleCrop()
-                    .into(userProfileImage!!)
-            }
-            uploadImage()
+        super.onActivityResult(requestCode, resultCode, data)
+        val headerView = navigationView.getHeaderView(0)
+        val userProfileImage = headerView?.findViewById<ImageView>(R.id.userProfileImage)
+        if (requestCode == 111 && resultCode == Activity.RESULT_OK && data != null) {
+            imageFilePath = data.data!!
+            Glide.with(this)
+                .load(imageFilePath)
+                .circleCrop()
+                .into(userProfileImage!!)
         }
+        uploadImage()
+    }
 
     private fun uploadImage() {
         val pd = ProgressDialog(this)
         pd.setTitle("Uploading")
         pd.show()
 
-        val imageReference = FirebaseStorage.getInstance().reference.child("images/${FirebaseAuth.getInstance().currentUser.uid}.jpg")
+        val imageReference =
+            FirebaseStorage.getInstance().reference.child("images/${FirebaseAuth.getInstance().currentUser.uid}.jpg")
         imageReference.putFile(imageFilePath)
             .addOnSuccessListener {
                 pd.dismiss()
-                Toast.makeText(this,"Profile Image Uploaded Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Profile Image Uploaded Successfully", Toast.LENGTH_SHORT)
+                    .show()
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 pd.dismiss()
-                Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
             .addOnProgressListener {
-                val progress = (100.0 * it.bytesTransferred)/it.totalByteCount
+                val progress = (100.0 * it.bytesTransferred) / it.totalByteCount
                 pd.setMessage("Uploded ${progress.toInt()}%")
             }
     }
