@@ -1,20 +1,18 @@
 package com.example.loginapp.models
 
-import android.content.Context
-import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginapp.R
+import com.example.loginapp.util.Note
 
 class NotesAdapter(private var notesList: ArrayList<Note>) :
         RecyclerView.Adapter<MyViewHolder>(){
-    private val firebaseNoteDataManager = FirebaseNoteDataManager()
+    private val firebaseNoteDataManager =
+        FirebaseNoteDataManager()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val viewHolder:View = LayoutInflater.from(parent.context).inflate(R.layout.layout_notes_item, parent,

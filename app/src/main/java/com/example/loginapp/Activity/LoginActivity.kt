@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.loginapp.models.SharedPreferenceHelper
 import com.example.loginapp.R
-import com.example.loginapp.models.FirebaseUserManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

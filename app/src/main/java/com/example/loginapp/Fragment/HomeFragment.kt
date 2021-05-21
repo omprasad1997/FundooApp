@@ -12,7 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.loginapp.R
+import com.example.loginapp.data.sqlite.DatabaseHandler
+import com.example.loginapp.data.sqlite.NoteTableManagerImpl
 import com.example.loginapp.models.*
+import com.example.loginapp.models.FirebaseNoteDataManager
+import com.example.loginapp.util.Note
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -38,14 +42,17 @@ class HomeFragment : Fragment() {
             addNoteButton = view.findViewById(R.id.addNoteButton)
             recyclerView = view.findViewById(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
-            firebaseNoteDataManager = FirebaseNoteDataManager()
+            firebaseNoteDataManager =
+                FirebaseNoteDataManager()
 
-            noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+            noteViewModel = ViewModelProvider(this, MyViewModelFactory(NoteTableManagerImpl(
+                DatabaseHandler.getInstance(requireContext()))))
+                            .get(NoteViewModel::class.java)
 
             noteViewModel.notesMutableList.observe(viewLifecycleOwner,
-                Observer<ViewState<ArrayList<Note>>> { arrayListViewState ->
+                Observer { arrayListViewState ->
                     if(arrayListViewState is ViewState.Loading) {
-                        Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
                     } else if (arrayListViewState is ViewState.Success) {
                         notes = arrayListViewState.data
                         Log.e(TAG, "onNoteReceived: $notes")
@@ -53,27 +60,10 @@ class HomeFragment : Fragment() {
                         recyclerView.adapter = notesAdapter
                         notesAdapter.notifyDataSetChanged()
                     } else {
-                        Toast.makeText(context, "Something went Wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Something went Wrong", Toast.LENGTH_SHORT).show()
                     }
                 })
         }
-
-
-
-//        noteDataManger.getAllNotes (object: CallBack<ArrayList<Note>> {
-//            override fun onSuccess(data: ArrayList<Note>) {
-//                var notesAdapter = NotesAdapter(data)
-//                Log.e(TAG, "onNoteReceived: $data")
-//                notesAdapter = NotesAdapter(data)
-//                recyclerView.adapter = notesAdapter
-//                notesAdapter.notifyDataSetChanged()
-//            }
-//
-//            override fun onFailure(exception: Exception) {
-//                Toast.makeText(context,
-//                        "Something went Wrong", Toast.LENGTH_SHORT).show()
-//            }
-//        })
 
         addNoteButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {

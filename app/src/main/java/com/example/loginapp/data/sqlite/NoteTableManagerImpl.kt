@@ -3,19 +3,19 @@ package com.example.loginapp.data.sqlite
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
-import com.example.loginapp.models.Note
+import com.example.loginapp.util.Note
 
-class NoteTableManagerImpl(private val databaseHandler: DatabaseHandler) : NoteTableManager{
-
+class NoteTableManagerImpl(private val databaseHandler: DatabaseHandler) : NoteTableManager {
 
     override fun addNote(note: Note): Boolean {
         val db = databaseHandler.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(DBConstants.NotesTable.KEY_ID, note.id)
-        contentValues.put(DBConstants.NotesTable.KEY_TITLE, note.title)
-        contentValues.put(DBConstants.NotesTable.KEY_NOTE, note.notes)
+        val notesValues = ContentValues()
+        notesValues.put(DBConstants.NotesTable.DOCUMENT_REFERENCE_ID, note.id)
+        notesValues.put(DBConstants.NotesTable.KEY_TITLE, note.title)
+        notesValues.put(DBConstants.NotesTable.KEY_NOTE, note.notes)
+        notesValues.put(DBConstants.NotesTable.FOREIGN_KEY, note.userUid)
         // Inserting Row
-        val success = db.insert(DBConstants.NotesTable.TABLE_NOTE_LIST, null, contentValues)
+        val success = db.insert(DBConstants.NotesTable.NOTE_LIST_TABLE, null, notesValues)
 
         db.close()
         return success > 0
@@ -23,9 +23,9 @@ class NoteTableManagerImpl(private val databaseHandler: DatabaseHandler) : NoteT
 
     override fun getAllNotes(): List<Note> {
         val noteList: ArrayList<Note> = ArrayList<Note>()
-        val selectQuery = "SELECT  * FROM ${DBConstants.NotesTable.TABLE_NOTE_LIST}"
+        val selectQuery = "SELECT  * FROM ${DBConstants.NotesTable.NOTE_LIST_TABLE}"
         val db = databaseHandler.readableDatabase
-        var cursor: Cursor?
+        val cursor: Cursor?
         try {
             cursor = db.rawQuery(selectQuery, null)
         } catch (e: SQLiteException) {
@@ -34,15 +34,18 @@ class NoteTableManagerImpl(private val databaseHandler: DatabaseHandler) : NoteT
         var userId: Int
         var title: String
         var note: String
+        var userUid: String
         if (cursor.moveToFirst()) {
             do {
                 userId = cursor.getInt(cursor.getColumnIndex("id"))
                 title = cursor.getString(cursor.getColumnIndex("title"))
                 note = cursor.getString(cursor.getColumnIndex("note"))
+                userUid = cursor.getString(cursor.getColumnIndex("userUid"))
                 val note = Note(
                     userId.toString(),
                     title,
-                    note
+                    note,
+                    userUid
                 )
                 noteList.add(note)
             } while (cursor.moveToNext())
@@ -54,12 +57,23 @@ class NoteTableManagerImpl(private val databaseHandler: DatabaseHandler) : NoteT
     override fun deleteNote(noteId: String): Boolean {
         val db = databaseHandler.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(DBConstants.NotesTable.KEY_ID, noteId)
+        contentValues.put(DBConstants.NotesTable.DOCUMENT_REFERENCE_ID, noteId)
         // Deleting Row
-        val success = db.delete(DBConstants.NotesTable.TABLE_NOTE_LIST, "id=$noteId", null)
+        val success = db.delete(DBConstants.NotesTable.NOTE_LIST_TABLE, "id=$noteId", null)
 
         db.close()
         return success > 0
     }
 
+    override fun deleteAllNotes() {
+        val db = databaseHandler.writableDatabase
+        db.execSQL("DELETE FROM $DBConstants.NotesTable.NOTE_LIST_TABLE")
+        db.close()
+    }
+
+    override fun addAllNotes(notes: ArrayList<Note>) {
+        notes.forEach{
+            addNote(it)
+        }
+    }
 }

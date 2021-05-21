@@ -1,8 +1,7 @@
 package com.example.loginapp.models
 
 import android.util.Log
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import com.example.loginapp.util.Note
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -72,7 +71,12 @@ class FirebaseNoteDataManager {
                     val documentId = queryDocumentSnapshots.documents[index].id
                     val title = queryDocumentSnapshots.documents[index].getString("title")
                     val notes = queryDocumentSnapshots.documents[index].getString("note")
-                    val note = Note(documentId, title, notes)
+                    val note = Note(
+                        documentId,
+                        title,
+                        notes,
+                        userUid
+                    )
                     notesList.add(note)
                 }
                 listener.onSuccess(notesList)

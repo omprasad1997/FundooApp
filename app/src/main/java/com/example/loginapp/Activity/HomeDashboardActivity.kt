@@ -5,7 +5,6 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -25,7 +24,7 @@ import com.example.loginapp.Fragment.SettingsFragment
 import com.example.loginapp.R
 import com.example.loginapp.models.CallBack
 import com.example.loginapp.models.FirebaseUserManager
-import com.example.loginapp.models.FirebaseUserModel
+import com.example.loginapp.util.FirebaseUserModel
 import com.example.loginapp.models.SharedPreferenceHelper
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -79,7 +78,8 @@ class HomeDashboardActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         val headerView = navigationView?.getHeaderView(0)
         val userProfileName = headerView?.findViewById<TextView>(R.id.userProfileName)
         val userProfileEmail = headerView?.findViewById<TextView>(R.id.userProfileEmail)
-        val firebaseUserManager = FirebaseUserManager()
+        val firebaseUserManager =
+            FirebaseUserManager()
         firebaseUserManager.getUserDetails(object : CallBack<FirebaseUserModel?> {
             override fun onSuccess(data: FirebaseUserModel?) {
                 userProfileName?.text = data?.userName

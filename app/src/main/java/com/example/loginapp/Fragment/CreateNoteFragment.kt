@@ -1,6 +1,5 @@
 package com.example.loginapp.Fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,26 +10,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.loginapp.R
 import com.example.loginapp.data.sqlite.DatabaseHandler
+import com.example.loginapp.data.sqlite.NoteTableManager
+import com.example.loginapp.data.sqlite.NoteTableManagerImpl
 import com.example.loginapp.models.FirebaseNoteDataManager
-import com.example.loginapp.models.Note
+import com.example.loginapp.util.Note
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
 
-class CreateNoteFragment() : Fragment() {
+class CreateNoteFragment : Fragment() {
     private lateinit var writtenNote: EditText
     private lateinit var noteTitle: EditText
     private lateinit var saveNoteButton: ImageView
     private lateinit var firebaseNoteDataManager: FirebaseNoteDataManager
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseHandler
+    private lateinit var noteTableManager: NoteTableManager
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+        (activity as? AppCompatActivity)?.supportActionBar?.hide()
         val view = inflater.inflate(R.layout.fragment_create_note, container, false)
         initializationOfViews(view)
         return view
@@ -41,8 +43,11 @@ class CreateNoteFragment() : Fragment() {
             writtenNote = view.findViewById(R.id.writtenNote)
             noteTitle = view.findViewById(R.id.noteTitle)
             saveNoteButton = view.findViewById(R.id.saveNoteButton)
-            firebaseNoteDataManager = FirebaseNoteDataManager()
+            firebaseNoteDataManager =
+                FirebaseNoteDataManager()
             mAuth = FirebaseAuth.getInstance()
+            noteTableManager = NoteTableManagerImpl(DatabaseHandler.getInstance(requireContext()))
+
             saveNoteButton.setOnClickListener {
 
                 val title = noteTitle.text.toString()
@@ -54,10 +59,11 @@ class CreateNoteFragment() : Fragment() {
                         .setAction("Action", null)
                         .show()
                 } else {
-                    firebaseNoteDataManager.saveDataToFireStoreWithSubCollection(title, note
+                    firebaseNoteDataManager.saveDataToFireStoreWithSubCollection(
+                        title, note
                     ) { noteId: String?, exception: Exception? ->
                         noteId?.let {
-                            db.addNote(Note(noteId,title, note))
+                            noteTableManager.addNote(Note(noteId, title, note, userUid))
                             Snackbar.make(view, "Note saved successfully", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null)
                                 .show()
@@ -74,10 +80,8 @@ class CreateNoteFragment() : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
-         db = DatabaseHandler(context)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as? AppCompatActivity)?.supportActionBar?.show()
     }
 }
