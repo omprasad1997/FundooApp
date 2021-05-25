@@ -36,4 +36,5 @@
     <string name="xyz_gmail_com">xyz@gmail.com</string>
     <string name="user_name">User Name</string>
     <string name="useremail">userEmail</string>
+    <string name="search_note">Search note</string>
 </resources>

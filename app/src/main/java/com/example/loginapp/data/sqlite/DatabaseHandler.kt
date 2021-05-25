@@ -25,17 +25,18 @@ class DatabaseHandler private constructor(val context: Context) : SQLiteOpenHelp
 
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_USER_TABLE = ("CREATE TABLE " + DBConstants.UsersTable.TABLE_USERS + "("
-                + DBConstants.UsersTable.USERS_UID + "TEXT PRIMARY KEY,"
-                + DBConstants.UsersTable.USER_NAME + "TEXT,"
-                + DBConstants.UsersTable.USER_EMAIL + "TEXT" + ")")
+                + DBConstants.UsersTable.USERS_UID + " TEXT PRIMARY KEY, "
+                + DBConstants.UsersTable.USER_NAME + " TEXT NOT NULL, "
+                + DBConstants.UsersTable.USER_EMAIL + " TEXT NOT NULL" + ");")
 
         val CREATE_NOTE_TABLE = ("CREATE TABLE " + DBConstants.NotesTable.NOTE_LIST_TABLE + "("
-                + DBConstants.NotesTable.DOCUMENT_REFERENCE_ID + " TEXT PRIMARY KEY,"
-                + DBConstants.NotesTable.KEY_TITLE + "TEXT,"
-                + DBConstants.NotesTable.KEY_NOTE + "TEXT"
-                + "FOREIGN KEY (" + DBConstants.UsersTable.USERS_UID + ")"
-                + "REFERENCE (" + DBConstants.UsersTable.TABLE_USERS
-                + DBConstants.UsersTable.USERS_UID + ")")
+                + DBConstants.NotesTable.DOCUMENT_REFERENCE_ID + " TEXT PRIMARY KEY, "
+                + DBConstants.NotesTable.KEY_TITLE + " TEXT NOT NULL, "
+                + DBConstants.NotesTable.KEY_NOTE + " TEXT NOT NULL, "
+                + DBConstants.NotesTable.FOREIGN_KEY + " TEXT NOT NULL, "
+                + " FOREIGN KEY (" + DBConstants.NotesTable.FOREIGN_KEY + ") REFERENCES "
+                + DBConstants.UsersTable.TABLE_USERS
+                + "(" + DBConstants.UsersTable.USERS_UID + "));")
         db?.execSQL(CREATE_USER_TABLE)
         db?.execSQL(CREATE_NOTE_TABLE)
     }

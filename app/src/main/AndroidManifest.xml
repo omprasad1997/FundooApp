@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginApp">
         <activity
-            android:name=".Activity.SplashScreenActivity">
+            android:name=".UI.Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,14 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.ForgotPasswordActivity"
-            android:parentActivityName=".Activity.LoginActivity">
+            android:name=".UI.Activity.ForgotPasswordActivity"
+            android:parentActivityName=".UI.Activity.LoginActivity">
 
         </activity>
-        <activity android:name=".Activity.HomeDashboardActivity" />
-        <activity android:name=".Activity.SignupActivity" />
+        <activity android:name=".Dashboard.Activity.HomeDashboardActivity" />
+        <activity android:name=".UI.Activity.SignupActivity" />
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".UI.Activity.LoginActivity"
             android:theme="@style/Theme.LoginApp">
         </activity>
     </application>

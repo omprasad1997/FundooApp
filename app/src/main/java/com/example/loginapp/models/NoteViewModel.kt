@@ -3,8 +3,10 @@ package com.example.loginapp.models
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.loginapp.data.sqlite.NoteTableManager
-import com.example.loginapp.util.Note
+import com.example.loginapp.Firebase.DataManager.FirebaseNoteDataManager
+import com.example.loginapp.HelperClasses.CallBack
+import com.example.loginapp.data.sqlite.NoteTable.NoteTableManager
+import com.example.loginapp.Firebase.DataManager.Note
 
 class NoteViewModel(private val noteTableManager: NoteTableManager) : ViewModel() {
 
@@ -20,7 +22,8 @@ class NoteViewModel(private val noteTableManager: NoteTableManager) : ViewModel(
 
     private fun loadNotes() {
         notesMutableList.value = ViewState.Loading(ArrayList(noteTableManager.getAllNotes()))
-        firebaseNoteDataManager.getAllNotes(object : CallBack<ArrayList<Note>> {
+        firebaseNoteDataManager.getAllNotes(object :
+            CallBack<ArrayList<Note>> {
             override fun onSuccess(data: ArrayList<Note>) {
                 Log.e(TAG, "onNoteReceived: $data")
                 noteTableManager.deleteAllNotes()
