@@ -11,49 +11,105 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.loginapp.R
 import com.example.loginapp.Firebase.DataManager.FirebaseNoteDataManager
 import com.example.loginapp.Firebase.DataManager.Note
+import com.example.loginapp.models.BaseViewHolder
 
 class NotesAdapter(private var notesList: ArrayList<Note>) :
-    RecyclerView.Adapter<MyViewHolder>(), Filterable {
+    RecyclerView.Adapter<BaseViewHolder>(), Filterable {
+
+    private val VIEW_TYPE_LOADING = 0
+    private val VIEW_TYPE_NORMAL = 1
+    private var isLoaderVisible = false
 
     private var cloneOfNoteList = ArrayList<Note>(notesList)
     private val firebaseNoteDataManager =
         FirebaseNoteDataManager()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val viewHolder: View = LayoutInflater.from(parent.context).inflate(
-            R.layout.layout_notes_item, parent,
-            false
-        )
-        return MyViewHolder(
-            viewHolder,
-            onDeleteClick = { position ->
-                Log.e("Check delete", "Item is deleted")
-                firebaseNoteDataManager.deleteNote(notesList[position].id) {
-                    if (it) {
-                        Toast.makeText(
-                            parent.context, "Note is deleted",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        notesList.removeAt(position)
-                        notifyItemRemoved(position)
-                    } else {
-                        Toast.makeText(
-                            parent.context, "Something went wrong",
-                            Toast.LENGTH_SHORT
-                        ).show()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+
+        if (viewType == VIEW_TYPE_NORMAL) {
+            val viewHolder: View = LayoutInflater.from(parent.context).inflate(
+                R.layout.layout_notes_item, parent,
+                false
+            )
+            return MyViewHolder(
+                viewHolder, notesList,
+                onDeleteClick = { position ->
+                    Log.e("Check delete", "Item is deleted")
+                    firebaseNoteDataManager.deleteNote(notesList[position].id) {
+                        if (it) {
+                            Toast.makeText(
+                                parent.context, "Note is deleted",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            notesList.removeAt(position)
+                            notifyItemRemoved(position)
+                        } else {
+                            Toast.makeText(
+                                parent.context, "Something went wrong",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
-            })
+                })
+        } else {
+            val viewHolder: View = LayoutInflater.from(parent.context).inflate(
+                R.layout.layout_notes_item, parent,
+                false
+            )
+            return ProgessHolder(viewHolder)
+        }
+    }
+
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.onBind(position)
+//        holder.notesTitle.text = notesList[position].title
+//        holder.notesText.text = notesList[position].notes
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if (isLoaderVisible) {
+            return if (position == notesList.size - 1)
+                VIEW_TYPE_LOADING
+            else
+                VIEW_TYPE_NORMAL
+        } else {
+            return VIEW_TYPE_NORMAL
+        }
     }
 
     override fun getItemCount(): Int {
         return notesList.size
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.notesTitle.text = notesList[position].title
-        holder.notesText.text = notesList[position].notes
+    fun addItems(noteItems: List<Note>) {
+        notesList.addAll(noteItems)
+        notifyDataSetChanged()
     }
+
+    fun addLoading() {
+        isLoaderVisible = true
+//        notesList.add(Note())
+        notifyItemInserted(notesList.size - 1)
+    }
+
+    fun removeLoading() {
+        isLoaderVisible = false
+        val position = notesList.size - 1
+        val item = getItem(position)
+        notesList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun clear() {
+        notesList.clear()
+        notifyDataSetChanged()
+    }
+
+    fun getItem(position: Int): Any {
+        return notesList[position]
+    }
+
 
     override fun getFilter(): Filter {
         return exampleFilter
@@ -62,7 +118,7 @@ class NotesAdapter(private var notesList: ArrayList<Note>) :
     private var exampleFilter: Filter = object : Filter() {
 
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            var filteredList: MutableList<Note> = ArrayList()
+            val filteredList: MutableList<Note> = ArrayList()
 
             if (constraint == null || constraint.isEmpty()) {
                 filteredList.addAll(cloneOfNoteList)
@@ -75,7 +131,7 @@ class NotesAdapter(private var notesList: ArrayList<Note>) :
                 }
             }
 
-            var results = FilterResults()
+            val results = FilterResults()
             results.values = filteredList
             return results
         }

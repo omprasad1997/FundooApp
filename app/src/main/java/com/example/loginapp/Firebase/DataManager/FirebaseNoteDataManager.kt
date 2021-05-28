@@ -19,6 +19,7 @@ class FirebaseNoteDataManager {
         val userUID = mAuth.currentUser?.uid
         notesInformation["title"] = title
         notesInformation["note"] = note
+        notesInformation["creation time"] = System.currentTimeMillis()
         usersInformation["Name"] = mAuth.currentUser?.displayName.toString()
         usersInformation["email"] = mAuth.currentUser?.email.toString()
         db.collection("Users").document(userUID.toString()).set(usersInformation)
