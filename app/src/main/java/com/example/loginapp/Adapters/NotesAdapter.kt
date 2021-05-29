@@ -53,7 +53,7 @@ class NotesAdapter(private var notesList: ArrayList<Note>) :
                 })
         } else {
             val viewHolder: View = LayoutInflater.from(parent.context).inflate(
-                R.layout.layout_notes_item, parent,
+                /*use item loading*/ R.layout.item_loading, parent,
                 false
             )
             return ProgessHolder(viewHolder)
@@ -84,19 +84,18 @@ class NotesAdapter(private var notesList: ArrayList<Note>) :
 
     fun addItems(noteItems: List<Note>) {
         notesList.addAll(noteItems)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(itemCount, noteItems.size)
     }
 
     fun addLoading() {
         isLoaderVisible = true
-//        notesList.add(Note())
-        notifyItemInserted(notesList.size - 1)
+        notesList.add(Note())
+        notifyItemInserted(notesList.size)
     }
 
     fun removeLoading() {
         isLoaderVisible = false
         val position = notesList.size - 1
-        val item = getItem(position)
         notesList.removeAt(position)
         notifyItemRemoved(position)
     }
@@ -106,7 +105,7 @@ class NotesAdapter(private var notesList: ArrayList<Note>) :
         notifyDataSetChanged()
     }
 
-    fun getItem(position: Int): Any {
+    fun getItem(position: Int): Note {
         return notesList[position]
     }
 
