@@ -75,9 +75,14 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
             recyclerView.setHasFixedSize(true)
 
+
             val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-            recyclerView.layoutManager =
-                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+
+            // set the above layout manager rather than creating new
+            recyclerView.layoutManager = layoutManager
+            // initialize notes adapter
+            notesAdapter = NotesAdapter(ArrayList())
+            recyclerView.adapter = notesAdapter
             firebaseNoteDataManager =
                 FirebaseNoteDataManager()
 
@@ -87,15 +92,20 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                         DatabaseHandler.getInstance(requireContext())
                     )
                 )
-            )
-                .get(NoteViewModel::class.java)
+            ).get(NoteViewModel::class.java)
+
+            // fetch the notes initially
+            fetchNotes(0)
 
             recyclerView.addOnScrollListener(object : PaginationListener(layoutManager) {
                 override fun loadMoreItems() {
-                    fetchNotes(notesAdapter.getItem(CURRENT_NOTES_COUNT - 1) as Long)
+                    isLoading = true
 
-                    isLoading = true;
-                    fetchNotes(notesAdapter.getItem(notesAdapter.itemCount - 2) as Long)
+                    // Fix to this issue - https://stackoverflow.com/questions/42944005/recyclerview-cannot-call-this-method-in-a-scroll-callback
+                    recyclerView.post { notesAdapter.addLoading() }
+                    fetchNotes(notesAdapter.getItem(CURRENT_NOTES_COUNT - 1).creationTime)
+
+//                    fetchNotes(notesAdapter.getItem(notesAdapter.itemCount - 2) as Long)
                 }
 
                 override fun isLastPage(): Boolean {
@@ -153,7 +163,8 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     .get()
                     .addOnSuccessListener { queryDocumentSnapshots ->
                         var i: Int = 0
-                        while (i < queryDocumentSnapshots.size()) {
+                        val size = queryDocumentSnapshots.size()
+                        while (i < size) {
                             val documentSnapshot =
                                 queryDocumentSnapshots.documents[i]
                             val title = documentSnapshot.getString("title")
@@ -165,6 +176,13 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                             noteslist.add(note)
                             i++
                         }
+
+                        if (notesAdapter.itemCount > 0)
+                            notesAdapter.removeLoading()
+                        isLoading = false
+                        CURRENT_NOTES_COUNT += size
+                        Log.e(TAG, "snapshots size $size")
+                        notesAdapter.addItems(noteslist)
 
                         if (CURRENT_NOTES_COUNT < TOTAL_NOTES_COUNT) {
                             Log.e(
@@ -178,12 +196,7 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                             )
                             isLastPage = true
                         }
-                        isLoading = false
-                        CURRENT_NOTES_COUNT += queryDocumentSnapshots.size()
-                        notesAdapter.addItems(noteslist)
                     }
-                recyclerView.adapter = notesAdapter
-                notesAdapter.notifyDataSetChanged()
             }
 
             override fun onFailure(exception: Exception) {}
@@ -240,6 +253,6 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun onRefresh() {
-
+        swipeRefresh.isRefreshing = false
     }
 }
